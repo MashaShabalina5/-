@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовое приложение</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .filter-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .filter-item::after {
+            content: '▼';
+            margin-left: 5px;
+            font-size: 10px;
+        }
+        
+        .period-selector {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .period-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .period-option.active {
+            background-color: #f0f0f0;
+            font-weight: 500;
+        }
+        
+        .amounts {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .amount {
+            text-align: center;
+        }
+        
+        .amount-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .amount-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .months {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .month {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .month.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .chart-bar {
+            height: 4px;
+            background-color: #f0f0f0;
+            border-radius: 2px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .chart-fill {
+            position: absolute;
+            height: 100%;
+            background-color: #4a90e2;
+            border-radius: 2px;
+            width: 70%;
+        }
+        
+        .interesting-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .section-icon {
+            font-size: 16px;
+        }
+        
+        .subscription-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .subscription-item:last-child {
+            border-bottom: none;
+        }
+        
+        .subscription-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .subscription-title {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .subscription-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .subscription-amount {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .nav-item.active {
+            color: #4a90e2;
+        }
+        
+        .nav-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Декабрь</h1>
+        <div class="filters">
+            <div class="filter-item">Люди</div>
+            <div class="filter-item">Даты</div>
+            <div class="filter-item">Счета и карты</div>
+        </div>
+    </div>
+    
+    <div class="period-selector">
+        <div class="period-option active">Все</div>
+        <div class="period-option">Расходы</div>
+        <div class="period-option">Доходы</div>
+    </div>
+    
+    <div class="amounts">
+        <div class="amount">
+            <div class="amount-label">Расход</div>
+            <div class="amount-value">100 000 ₽</div>
+        </div>
+        <div class="amount">
+            <div class="amount-label">Доход</div>
+            <div class="amount-value">200 325 ₽</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <div class="months">
+            <div class="month">Июн</div>
+            <div class="month">Июл</div>
+            <div class="month">Авг</div>
+            <div class="month">Сен</div>
+            <div class="month">Ноя</div>
+            <div class="month active">Дек</div>
+        </div>
+        <div class="chart-bar">
+            <div class="chart-fill"></div>
+        </div>
+    </div>
+    
+    <div class="interesting-section">
+        <div class="section-header">
+            <div class="section-title">Интересное за месяц</div>
+            <div class="section-icon">💺️</div>
+        </div>
+        
+        <div class="subscription-item">
+            <div class="subscription-info">
+                <div class="subscription-title">Сервисы и подписки</div>
+                <div class="subscription-desc">1 новая подписка</div>
+            </div>
+            <div class="subscription-amount">13 600 ₽</div>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <div class="nav-item">Главный</div>
+        <div class="nav-item">Платежи</div>
+        <div class="nav-item">Выгода</div>
+        <div class="nav-item active">История</div>
+        <div class="nav-item">Чат</div>
+    </div>
+
+    <script>
+        // Добавляем простую интерактивность
+        document.querySelectorAll('.period-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.period-option').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
